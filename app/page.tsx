@@ -88,8 +88,8 @@ function DetailDrawer({ issue, onClose }: { issue: Issue; onClose: () => void })
         </header>
 
         <div className="min-h-0 flex-1 overflow-y-auto">
-          <div className="grid min-h-full lg:grid-cols-[minmax(0,1fr)_290px]">
-            <article className="min-w-0 px-5 py-6 sm:px-8 lg:border-r lg:border-border">
+          <div className="grid min-h-full md:grid-cols-[minmax(0,1fr)_290px]">
+            <article className="min-w-0 px-5 py-6 sm:px-8 md:border-r md:border-border">
               <div className="flex items-start justify-between gap-4">
                 <h1 className="max-w-4xl text-3xl font-bold leading-tight tracking-tight text-foreground sm:text-4xl">{issue.title}</h1>
                 <button aria-label="Issue actions" className="hidden shrink-0 rounded-md border border-input p-2 sm:block"><MoreVertical size={20} /></button>
@@ -126,7 +126,7 @@ function DetailDrawer({ issue, onClose }: { issue: Issue; onClose: () => void })
               </div>
             </article>
 
-            <aside className="border-t border-border px-5 py-6 sm:px-8 lg:border-t-0">
+            <aside className="border-t border-border px-5 py-6 sm:px-8 md:border-t-0">
               <div className="flex flex-col gap-6 text-sm"><Info label="Assignee" value="None" /><div><p className="font-semibold">Labels</p><div className="mt-2"><IssueLabels issue={issue} /></div></div><Info label="Dates" value="Start:  None\nDue:  None" /><Info label="Milestone" value="None" /><Info label="Parent" value="None" /><Info label="Time tracking" value="No estimate or time spent" /><Info label="Contacts" value="None" /><Info label="3 Participants" value="" /></div>
             </aside>
           </div>
