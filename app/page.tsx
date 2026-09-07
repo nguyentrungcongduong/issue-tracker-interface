@@ -60,7 +60,7 @@ const issues: Issue[] = [
 ]
 
 function IssueLabels({ issue }: { issue: Issue }) {
-  return <div className="flex flex-wrap gap-1.5">{issue.labels.map(([label, color]) => <span key={label} className={`rounded-full px-2.5 py-0.5 text-xs font-medium text-white ${color}`}>{label}</span>)}</div>
+  return <span className="flex flex-wrap gap-1.5">{issue.labels.map(([label, color]) => <span key={label} className={`rounded-full px-2.5 py-0.5 text-xs font-medium text-white ${color}`}>{label}</span>)}</span>
 }
 
 function DetailDrawer({ issue, onClose }: { issue: Issue; onClose: () => void }) {
@@ -121,8 +121,56 @@ function DetailDrawer({ issue, onClose }: { issue: Issue; onClose: () => void })
               <div className="mt-10 border-t border-border pt-6">
                 <p className="text-sm text-muted-foreground">Edited {issue.updated} by {issue.author}</p>
                 <div className="mt-4 flex flex-wrap gap-2"><button className="rounded-md border border-input px-4 py-2">Thumbs up {issue.likes}</button><button className="rounded-md border border-input px-4 py-2">Thumbs down 0</button><button className="rounded-md border border-input px-4 py-2">Heart 1</button></div>
-                <h2 className="mt-10 text-2xl font-bold">Activity</h2>
-                <div className="mt-5 border-l-2 border-border pl-5 text-sm text-muted-foreground"><p><strong className="text-foreground">{issue.author}</strong> changed the description 7 months ago</p><div className="mt-5 rounded-lg border border-border p-4"><p><strong className="text-foreground">Nguyễn Ngọc Diễm Ngân</strong> <span className="ml-2">1 month ago</span></p><p className="mt-3 text-foreground">Mình đồng ý, cách này giúp giao diện không bị block khi xử lý nhiều dữ liệu.</p><input aria-label="Reply" placeholder="Reply..." className="mt-4 w-full rounded-md border border-input bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring" /></div></div>
+                <div className="mt-10 flex items-center justify-between gap-4">
+                  <h2 className="text-2xl font-bold">Activity</h2>
+                  <div className="flex items-center gap-2">
+                    <select aria-label="Activity filter" className="rounded-md border border-input bg-background px-2.5 py-1.5 text-xs text-foreground">
+                      <option>All activity</option>
+                    </select>
+                    <select aria-label="Activity order" className="rounded-md border border-input bg-background px-2.5 py-1.5 text-xs text-foreground">
+                      <option>Oldest first</option>
+                    </select>
+                  </div>
+                </div>
+
+                <div className="relative mt-5 flex flex-col gap-4 pl-6 text-xs before:absolute before:bottom-2 before:left-1.5 before:top-2 before:w-px before:bg-border">
+                  <div className="relative">
+                    <span className="absolute -left-6 top-1.5 size-2 rounded-full border border-background bg-muted-foreground" />
+                    <p className="leading-5 text-muted-foreground"><strong className="text-foreground">{issue.author}</strong> added <IssueLabels issue={issue} /> labels <span>7 months ago</span></p>
+                  </div>
+                  <div className="relative">
+                    <span className="absolute -left-6 top-1.5 size-2 rounded-full border border-background bg-muted-foreground" />
+                    <p className="leading-5 text-muted-foreground"><strong className="text-foreground">Nguyễn Đình Khang</strong> changed the description <span>7 months ago</span></p>
+                  </div>
+                  <div className="relative flex gap-3">
+                    <div className="absolute -left-7 top-1 flex size-6 items-center justify-center rounded-full border border-border bg-muted text-[10px] font-bold text-foreground">NN</div>
+                    <div className="min-w-0 flex-1 rounded-md border border-border bg-muted/20">
+                      <div className="flex items-center justify-between gap-3 border-b border-border px-3 py-2">
+                        <p className="truncate"><strong className="text-foreground">Nguyễn Ngọc Diễm Ngân</strong> <span className="text-muted-foreground">@26013 · 1 month ago</span></p>
+                        <div className="flex shrink-0 items-center gap-3 text-muted-foreground"><span aria-label="React">☺</span><span aria-label="Reply">↩</span><MoreVertical size={15} /></div>
+                      </div>
+                      <p className="px-3 py-2 text-foreground">Mình đồng ý, cách này giúp giao diện không bị block khi xử lý nhiều dữ liệu.</p>
+                      <div className="border-t border-border bg-background/70 px-3 py-2">
+                        <button className="text-blue-700 dark:text-blue-300">⌄&nbsp; Collapse replies</button>
+                        <div className="mt-3 flex gap-2 border-t border-border pt-3">
+                          <div className="flex size-6 shrink-0 items-center justify-center rounded-full border border-border bg-muted text-[9px] font-bold">NN</div>
+                          <div className="min-w-0 flex-1">
+                            <div className="flex items-center justify-between gap-2"><p className="truncate"><strong>Nguyễn Ngọc Diễm Ngân</strong> <span className="text-muted-foreground">@26013 · 1 month ago</span></p><MoreVertical size={14} className="shrink-0 text-muted-foreground" /></div>
+                            <p className="mt-1 text-foreground">3333333333333333</p>
+                          </div>
+                        </div>
+                        <input aria-label="Reply" placeholder="Reply..." className="mt-3 w-full rounded-md border border-input bg-background px-3 py-2 outline-none focus:ring-2 focus:ring-ring" />
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div className="mt-4 rounded-md border border-input bg-background">
+                  <div className="flex flex-wrap items-center gap-3 border-b border-border px-3 py-2 text-xs text-muted-foreground"><span className="font-medium text-foreground">Preview</span><span>|</span><strong className="text-sm text-foreground">B</strong><em className="text-sm text-foreground">I</em><span className="text-sm text-foreground">S</span><span>☷</span><span>&lt;/&gt;</span><Link2 size={13} /><span>☷</span><span>☑</span><span>▣</span><span>▤</span></div>
+                  <textarea aria-label="Write a comment" placeholder="Write a comment or drag your files here..." className="min-h-36 w-full resize-y bg-transparent px-3 py-3 text-xs outline-none placeholder:text-muted-foreground" />
+                  <div className="border-t border-border px-3 py-2 text-[10px] text-muted-foreground">Switch to rich text editing</div>
+                </div>
+                <div className="mt-3 flex gap-2"><button className="rounded-md bg-blue-600 px-3 py-1.5 text-xs font-medium text-white">Comment</button><button className="rounded-md border border-input px-3 py-1.5 text-xs">Cancel</button></div>
               </div>
             </article>
 
